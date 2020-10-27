@@ -10,7 +10,7 @@ V ::= nameV
 A ::= Top | Bottom | {nameP arityP} V V .. V | Equal V V | And (A) (A) | Or (A) (A) | Not (A) | To (A) (A) | Forall V (A) | Exists V (A)
 where nameV and nameP are names for variables and predicates, respectively. Predicates will be displayed the same name as input boxes and diamonds. arityP (>= 1) are arities for predicates, obtained by adding one to the arity of corresponding box or diamond, and followed by exactly the same amount of Vs.
 
-For the present version, please follow the above grammar strictly, and do not mistake any blanks or parentheses.
+For the present version, please follow the above syntax strictly, and do not mistake any blanks or parentheses.
 Input sample: (To (<K 1> ([K 1] p)) ([K 1] p))
 Output sample: Forall x1 (To ({K 2} x0 x1) (Forall x3 (To ({K 2} x0 x3) ({K 2} x1 x3))))
 For source code of the latest version, see https://github.com/SinnuOu/Sahlqvist-Calculator. For further information and bug reports, email s2010404@jaist.ac.jp.

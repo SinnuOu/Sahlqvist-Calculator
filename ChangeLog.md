@@ -1,3 +1,6 @@
+1.0.2
+Modified stack-related files.
+
 1.0.1
 Modified some description.
 

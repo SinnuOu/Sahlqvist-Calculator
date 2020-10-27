@@ -1,4 +1,14 @@
-packages: []
+name: Sahlqvist-Calculator
+version: 1.0.2
+github: "https://github.com/SinnuOu/Sahlqvist-Calculator"
+license: GPL-3.0
+author: "WANG, Xinyu"
+maintainer: "s2010404@jaist.ac.jp"
+copyright: "2020 WANG, Xinyu"
+extra-source-files:
+- ReadMe.md
+- ChangeLog.md
+description: Please see the ReadMe on GitHub at <https://github.com/SinnuOu/Sahlqvist-Calculator/blob/main/ReadMe.md>.
 resolver: lts-16.19
 extra-deps:
 - gi-atk-2.0.22

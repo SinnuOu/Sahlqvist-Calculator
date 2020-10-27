@@ -8,7 +8,7 @@ import Control.Monad.Except
 import Text.Read (readMaybe)
 
 title :: String
-title = "Sahlqvist Calculator-1.0.1"
+title = "Sahlqvist Calculator-1.0.2"
 
 foo :: String -> String
 foo s = output $ do
