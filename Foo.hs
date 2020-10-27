@@ -8,7 +8,7 @@ import Control.Monad.Except
 import Text.Read (readMaybe)
 
 title :: String
-title = "Sahlqvist Calculator-1.0.0"
+title = "Sahlqvist Calculator-1.0.1"
 
 foo :: String -> String
 foo s = output $ do
@@ -153,7 +153,7 @@ fix' f = f1
 simplify1 :: Wff1 -> Either String Wff1
 simplify1 = Right . fix' simplify1'
 parseError :: String
-parseError = "Parse error!"
+parseError = "Syntax error!"
 
 parseBlank :: String -> Either String (String, String)
 parseBlank "" = Left parseError
