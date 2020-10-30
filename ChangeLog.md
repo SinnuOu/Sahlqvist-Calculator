@@ -1,3 +1,6 @@
+1.0.3
+Modified code style.
+
 1.0.2
 Modified stack-related files.
 

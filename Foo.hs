@@ -4,11 +4,10 @@ module Foo
 ) where
 
 import qualified Data.Set as Set
-import Control.Monad.Except
 import Text.Read (readMaybe)
 
 title :: String
-title = "Sahlqvist Calculator-1.0.2"
+title = "Sahlqvist Calculator-1.0.3"
 
 foo :: String -> String
 foo s = output $ do
@@ -91,8 +90,8 @@ instance Show WffM where
     show (WffMOr f1 f2) = lp ++ "Or" ++ blank ++ show f1 ++ blank ++ show f2 ++ rp
     show (WffMNot f) = lp ++ "Not" ++ blank ++ show f ++ rp
     show (WffMTo f1 f2) = lp ++ "To" ++ blank ++ show f1 ++ blank ++ show f2 ++ rp
-    show (WffMBox b@(Box s w) fs) = lp ++ show b ++ showList' fs w ++ rp
-    show (WffMDiamond d@(Diamond (Box s w)) fs) = lp ++ show d ++ showList' fs w ++ rp
+    show (WffMBox b@(Box _ w) fs) = lp ++ show b ++ showList' fs w ++ rp
+    show (WffMDiamond d@(Diamond (Box _ w)) fs) = lp ++ show d ++ showList' fs w ++ rp
 output :: (Show a) => (Either String a) -> String
 output (Left s) = s
 output (Right x) = show x
@@ -272,13 +271,13 @@ instantiations Wff1Top = []
 instantiations (Wff1And f fs) = instantiation f : instantiations fs
 
 assignment :: Wff1 -> Wff1
-assignment (Wff1To f1 f2) = map' subs $ Wff1To (filter' (not . boxed) f1) f2
+assignment (Wff1To f1' f2') = map' subs $ Wff1To (filter' (not . boxed) f1') f2'
     where boxed (Wff1P (Predicate _ w) _) | w > 1 = False
           boxed _ = True
           filter' _ Wff1Top = Wff1Top
           filter' fun (Wff1And f fs) | fun f = Wff1And f $ filter' fun fs
                                      | otherwise = filter' fun fs
-          subs = instantiations $ filter' boxed f1
+          subs = instantiations $ filter' boxed f1'
           map' l (Wff1P p@(Predicate _ 1) [t]) = foldl Wff1Or Wff1Bottom [ f t | (p', f) <- l, p' == p ]
           map' l (Wff1And f1 f2) = Wff1And (map' l f1) (map' l f2)
           map' l (Wff1Or f1 f2) = Wff1Or (map' l f1) (map' l f2)
@@ -382,7 +381,7 @@ positive1 (Wff1Exists _ f) = positive1 f
 positiveM :: WffM -> Bool
 positiveM WffMTop = True
 positiveM WffMBottom = True
-positiveM (WffMP p) = True
+positiveM (WffMP _) = True
 positiveM (WffMAnd f1 f2) = positiveM f1 && positiveM f2
 positiveM (WffMOr f1 f2) = positiveM f1 && positiveM f2
 positiveM (WffMNot f) = negativeM f
@@ -406,7 +405,7 @@ negative1 (Wff1Exists _ f) = negative1 f
 negativeM :: WffM -> Bool
 negativeM WffMTop = True
 negativeM WffMBottom = True
-negativeM (WffMP p) = False
+negativeM (WffMP _) = False
 negativeM (WffMAnd f1 f2) = negativeM f1 && negativeM f2
 negativeM (WffMOr f1 f2) = negativeM f1 && negativeM f2
 negativeM (WffMNot f) = positiveM f

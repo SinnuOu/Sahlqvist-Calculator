@@ -27,13 +27,13 @@ labelOpt = "Output:"
 
 main :: IO ()
 main = do
-  Gtk.init Nothing
+  _ <- Gtk.init Nothing
 
   win <- new Gtk.Window [ #title := T.pack title
                         , #defaultWidth := defaultWidth
                         , #defaultHeight := defaultHeight
                         ]
-  on win #destroy Gtk.mainQuit
+  _ <- on win #destroy Gtk.mainQuit
 
   box <- new Gtk.Box [ #orientation := orientation
                      , #spacing := spacing
@@ -73,8 +73,8 @@ main = do
                              , #wrapMode := wrapMode
                              ]
   #packStart box result False False padding
-  on btn #clicked (do input <- Gtk.entryGetText txt
-                      set resultBuffer [ #text := T.pack $ foo $ T.unpack $ input])
+  _ <- on btn #clicked (do input <- Gtk.entryGetText txt
+                           set resultBuffer [ #text := T.pack $ foo $ T.unpack $ input])
 
   #showAll win
 
