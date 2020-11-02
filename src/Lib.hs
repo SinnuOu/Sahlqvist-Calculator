@@ -1,19 +1,20 @@
-module Foo
-( title
-, foo
+module Lib
+( sahlqvistCalculator
 ) where
 
 import qualified Data.Set as Set
 import Text.Read (readMaybe)
+import Foreign.C.String
+foreign import ccall "parseM" c_parseM :: CString -> IO CString
 
-title :: String
-title = "Sahlqvist Calculator-1.0.3"
-
-foo :: String -> String
-foo s = output $ do
-    wffM <- parseM s
-    wff1 <- mTo1 wffM
-    simplify1 wff1
+sahlqvistCalculator :: String -> IO String
+sahlqvistCalculator s = do
+    c_s <- withCString s c_parseM
+    s' <- peekCString c_s
+    return $ output $ do
+        wffM <- parseM s'
+        wff1 <- mTo1 wffM
+        simplify1 wff1
 
 data Variable = Variable String deriving (Eq, Ord)
 data Predicate = Predicate String Word deriving (Eq, Ord)

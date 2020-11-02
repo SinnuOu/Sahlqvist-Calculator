@@ -4,14 +4,15 @@ import qualified GI.Gtk as Gtk
 import Data.GI.Base
 import qualified Data.Text as T
 import System.IO
-import Foo
+import Lib (sahlqvistCalculator)
 
+title = "Sahlqvist Calculator"
 defaultWidth = 1440
 defaultHeight = 900
 
 orientation = Gtk.OrientationVertical
-spacing = 10
-padding = 10
+spacing = 5
+padding = 5
 
 editable = False
 cursorVisible = False
@@ -29,7 +30,7 @@ main :: IO ()
 main = do
   _ <- Gtk.init Nothing
 
-  win <- new Gtk.Window [ #title := T.pack title
+  win <- new Gtk.Window [ #title := title
                         , #defaultWidth := defaultWidth
                         , #defaultHeight := defaultHeight
                         ]
@@ -40,7 +41,7 @@ main = do
                      ]
   #add win box
 
-  handle <- openFile "ReadMe.md" ReadMode  
+  handle <- openFile "README.md" ReadMode  
   contents <- hGetContents handle
   usageBuffer <- new Gtk.TextBuffer [ #text := T.pack contents ]
   usage <- new Gtk.TextView [ #buffer := usageBuffer
@@ -74,7 +75,8 @@ main = do
                              ]
   #packStart box result False False padding
   _ <- on btn #clicked (do input <- Gtk.entryGetText txt
-                           set resultBuffer [ #text := T.pack $ foo $ T.unpack $ input])
+                           output <- sahlqvistCalculator $ T.unpack input
+                           set resultBuffer [ #text := T.pack output ])
 
   #showAll win
 

@@ -1,28 +1,32 @@
 name: Sahlqvist-Calculator
-version: 1.0.3
+version: 1.1.0
 github: "https://github.com/SinnuOu/Sahlqvist-Calculator"
 license: GPL-3.0
 author: "WANG, Xinyu"
 maintainer: "s2010404@jaist.ac.jp"
 copyright: "2020 WANG, Xinyu"
 extra-source-files:
-- ReadMe.md
+- c_src/c_parseM.h
+- c_src/c_parseM.l
+- c_src/c_parseM.y
+- README.md
 - ChangeLog.md
+- Makefile
 description: Please see the ReadMe on GitHub at <https://github.com/SinnuOu/Sahlqvist-Calculator/blob/main/ReadMe.md>.
-resolver: lts-16.19
-extra-deps:
-- gi-atk-2.0.22
-- gi-cairo-1.0.24
-- gi-gdk-3.0.23
-- gi-gdkpixbuf-2.0.24
-- gi-gio-2.0.27
-- gi-glib-2.0.24
-- gi-gobject-2.0.24
-- gi-gtk-3.0.36
-- gi-pango-1.0.23
-- gi-graphene-1.0.2
-- gi-gsk-4.0.2
-- gi-harfbuzz-0.0.3
-- haskell-gi-base-0.24.3
-- git: https://github.com/haskell-gi/haskell-gi.git
-  commit: d04ecd11d0afeb88ffcc3802ac3c3b589646c51e
+dependencies:
+- base
+- containers
+- gi-gtk
+- haskell-gi-base
+- text
+library:
+  source-dirs: src
+  c-sources:
+  - c_src/lex.yy.c
+  - c_src/c_parseM.tab.c
+  include-dirs: c_src
+executables:
+  Sahlqvist-Calculator:
+    main: Main.hs
+    source-dirs: app
+    dependencies: Sahlqvist-Calculator

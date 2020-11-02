@@ -1,3 +1,6 @@
+1.1.0
+Updated to using flex and bison in parsing.
+
 1.0.3
 Modified code style.
 

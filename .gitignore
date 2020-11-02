@@ -1,0 +1,8 @@
+c_src/lex.yy.h
+c_src/lex.yy.c
+c_src/c_parseM.tab.h
+c_src/c_parseM.tab.c
+/stack.yaml.lock
+/Sahlqvist-Calculator.cabal
+/.stack-work/
+*~
