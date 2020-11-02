@@ -1,3 +1,6 @@
+1.1.1
+Renamed ReadMe.md to README.md.
+
 1.1.0
 Updated to using flex and bison in parsing.
 
