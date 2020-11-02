@@ -1,5 +1,5 @@
 name: Sahlqvist-Calculator
-version: 1.1.1
+version: 1.1.2
 github: "https://github.com/SinnuOu/Sahlqvist-Calculator"
 license: GPL-3.0
 author: "WANG, Xinyu"
@@ -12,7 +12,7 @@ extra-source-files:
 - README.md
 - ChangeLog.md
 - Makefile
-description: Please see the ReadMe on GitHub at <https://github.com/SinnuOu/Sahlqvist-Calculator/blob/main/ReadMe.md>.
+description: Please see the ReadMe on GitHub at <https://github.com/SinnuOu/Sahlqvist-Calculator/blob/main/README.md>.
 dependencies:
 - base
 - containers

@@ -1,3 +1,6 @@
+1.1.2
+Updated url of README.md.
+
 1.1.1
 Renamed ReadMe.md to README.md.
 
