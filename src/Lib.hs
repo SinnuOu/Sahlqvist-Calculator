@@ -57,7 +57,7 @@ lp :: String
 lp = "("
 rp :: String
 rp = ")"
-showList' :: (Show a) => [a] -> Word -> String
+showList' :: Show a => [a] -> Word -> String
 showList' [] 0 = ""
 showList' [] _ = error "showList'!"
 showList' (t:ts) w = blank ++ show t ++ showList' ts (w-1)
@@ -93,7 +93,7 @@ instance Show WffM where
     show (WffMTo f1 f2) = lp ++ "To" ++ blank ++ show f1 ++ blank ++ show f2 ++ rp
     show (WffMBox b@(Box _ w) fs) = lp ++ show b ++ showList' fs w ++ rp
     show (WffMDiamond d@(Diamond (Box _ w)) fs) = lp ++ show d ++ showList' fs w ++ rp
-output :: (Show a) => (Either String a) -> String
+output :: Show a => (Either String a) -> String
 output (Left s) = s
 output (Right x) = show x
 simplify1' :: Wff1 -> Wff1
@@ -145,7 +145,7 @@ simplify1' (Wff1Exists v0 (Wff1And (Wff1E (TermV v3) (TermV v4)) (Wff1P p [TermV
     | v0 == v4 && v0 /= v3 = simplify1' $ Wff1P p [TermV $ if v0 == v1 then v3 else v1, TermV $ if v0 == v2 then v3 else v2]
 simplify1' (Wff1Exists v f) | Set.member v $ getFreeVariables1 f = Wff1Exists v $ simplify1' f
                             | otherwise = simplify1' f
-fix' :: (Eq a) => (a -> a) -> a -> a
+fix' :: Eq a => (a -> a) -> a -> a
 fix' f = f1
     where f2 x y | x == y = x
                  | otherwise = f2 y $ f y
@@ -336,10 +336,10 @@ sibstitution1 (Wff1Forall v f, x) y | v == x = Wff1Forall x f
 sibstitution1 (Wff1Exists v f, x) y | v == x = Wff1Exists x f
                                     | otherwise = Wff1Exists v $ sibstitution1 (f, x) y
 
-getFreeVariablesT :: Term -> (Set.Set Variable)
+getFreeVariablesT :: Term -> Set.Set Variable
 getFreeVariablesT (TermV v) = Set.fromList [v]
 
-getFreeVariables1 :: Wff1 -> (Set.Set Variable)
+getFreeVariables1 :: Wff1 -> Set.Set Variable
 getFreeVariables1 Wff1Top = Set.empty
 getFreeVariables1 Wff1Bottom = Set.empty
 getFreeVariables1 (Wff1P _ ts) = foldl Set.union Set.empty $ map getFreeVariablesT ts
@@ -351,7 +351,7 @@ getFreeVariables1 (Wff1To f1 f2) = Set.union (getFreeVariables1 f1) (getFreeVari
 getFreeVariables1 (Wff1Forall v f) = Set.delete v (getFreeVariables1 f)
 getFreeVariables1 (Wff1Exists v f) = Set.delete v (getFreeVariables1 f)
 
-getAtoms :: WffM -> (Set.Set Predicate)
+getAtoms :: WffM -> Set.Set Predicate
 getAtoms WffMTop = Set.empty
 getAtoms WffMBottom = Set.empty
 getAtoms (WffMP p) = Set.fromList [p]

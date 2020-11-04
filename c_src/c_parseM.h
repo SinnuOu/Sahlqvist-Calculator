@@ -2,7 +2,6 @@
 #include <stdlib.h>
 #include <string.h>
 
-enum {false, true};
 enum {top, bottom, id, and, or, not, to, box, diamond};
 
 typedef struct MODALITY {
